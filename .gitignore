@@ -1,0 +1,17 @@
+# Output compilazione Visual Studio e .NET
+[Bb]in/
+[Oo]bj/
+
+# Impostazioni locali Visual Studio
+.vs/
+
+# File utente
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Risultati test e file temporanei
+TestResults/
+*.tmp
+*.log
