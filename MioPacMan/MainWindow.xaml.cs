@@ -18,13 +18,27 @@ namespace MioPacMan
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private int[,] mappa = new int[,]               
+           {
+               { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+               { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },                //0 vuol dire che è libero e pacman piò andare
+               { 1, 0, 1, 1, 0, 1, 1, 0, 0, 1 },                //1 vuol dire che c'è un muro
+               { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
+               { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }
+           };
+         private int casellaSize = 40;  //questo indica che ogni casella è 40x40 pixel
+
         private DispatcherTimer gameTimer = new DispatcherTimer();
         private int dirX = 0;
         private int dirY = 0;
 
+        private int vite = 0;
+
         public MainWindow()
         {
             InitializeComponent();
+           // DisegnaMappa();
 
             gameTimer.Interval = TimeSpan.FromMilliseconds(20);
             gameTimer.Tick += GameLoop;
@@ -80,7 +94,29 @@ namespace MioPacMan
                 dirX = 0;
 
             }
-
         }
+
+        public void DisegnaMappa()
+        {
+            for (int r = 0; r < mappa.GetLength(0); r++)       // mappa.GetLength(0) serve nelle matrici ad ottenere il numero delle righe
+            {
+                for (int c = 0; c < mappa.GetLength(1); c++)       // mappa.GetLength(0) serve nelle matrici ad ottenere il numero delle colonne
+                {
+                    if (mappa[r,c] == 1)
+                    {
+                        Rectangle muro = new Rectangle();
+                        muro.Width = casellaSize;            // sto impostando la larghezza del muro 
+                        muro.Height = casellaSize;           // sto impostando l'altezza del muro, combinate farebbe un muro 40x40, come una casella
+                        muro.Fill = Brushes.Blue;           // colore del muro
+
+                        Canvas.SetLeft(muro, c * casellaSize);
+                        Canvas.SetTop(muro, r * casellaSize);
+
+                        gameCanvas.Children.Add(muro);
+                    }
+                }
+            }
+        }
+
     }
 }
